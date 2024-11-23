@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserConvert {
+
+    // Copy entity -> DTO
     public UserDTO toUserDTO(Users user) {
         if (user == null) return null;
 
@@ -15,6 +17,7 @@ public class UserConvert {
         return userDTO;
     }
 
+    // Copy DTO -> entity
     public Users toUser(UserDTO userDTO) {
         if (userDTO == null) return null;
 
@@ -23,9 +26,7 @@ public class UserConvert {
         return user;
     }
 
-//    public UserInfoDTO toUserInfoDTO(Users user) {
-//        UserInfoDTO userInfoDTO = new UserInfoDTO();
-//        BeanUtils.copyProperties(user, userInfoDTO);
-//        return userInfoDTO;
-//    }
+    // Copy RegisterReq -> entity
+
+
 }

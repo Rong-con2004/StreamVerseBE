@@ -1,6 +1,7 @@
 package com.example.streamversebe.Model.Entity;
 
 import com.example.streamversebe.Model.BaseModel;
+import com.example.streamversebe.Model.Enum.ENation;
 import com.example.streamversebe.Model.Enum.ERole;
 import com.example.streamversebe.Model.Enum.EStatus;
 import jakarta.validation.constraints.Email;
@@ -67,6 +68,9 @@ public class Users extends BaseModel {
 
     @Field(name = "isEnable")
     private boolean isEnable;
+
+    @Field(name = "nationality")
+    private ENation nationality;
 
     @Field(name = "lastActive")
     private LocalDateTime lastActive;

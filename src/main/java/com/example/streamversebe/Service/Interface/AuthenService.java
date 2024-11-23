@@ -1,11 +1,13 @@
 package com.example.streamversebe.Service.Interface;
 
-import com.example.streamversebe.DTOs.Reponse.AuthRes;
+import com.example.streamversebe.DTOs.Reponse.LoginRes;
+import com.example.streamversebe.DTOs.Reponse.RegisterRes;
 import com.example.streamversebe.DTOs.Request.LoginReq;
 import com.example.streamversebe.DTOs.Request.RegisterReq;
 
 public interface AuthenService {
-    AuthRes register(RegisterReq request);
+    RegisterRes register(RegisterReq request);
 
-    AuthRes login(LoginReq request);
+    LoginRes login(LoginReq request);
+
 }

@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 public abstract class BaseModel {
 
     @Id
-    @MongoId(value = FieldType.STRING)
+    @MongoId
     @Field(name = "_id")
     private Object id;
 
