@@ -20,7 +20,6 @@ import java.util.List;
 @Builder
 @Document(collection = "Users")
 public class Users extends BaseModel {
-
     @NotBlank(message = "Username is required")
     @Field(name = "username")
     private String username;
