@@ -32,7 +32,7 @@ public class AuthenServiceImpl implements AuthenService {
         var user = Users.builder()
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(ERole.ROLE_USER)
+//                .role(ERole.ROLE_USER)
                 .isEnable(false)
                 .build();
         userRepository.save(user);
@@ -76,9 +76,7 @@ public class AuthenServiceImpl implements AuthenService {
     private void validateEmail(String email) {
         Optional<Users> user = userRepository.findByEmail(email);
         if (user.isPresent()) {
-            if (user.get().isEnable()) {
                 throw new UsernameNotFoundException(String.format("User with email %s already exists" , email));
-            }
         }
     }
 

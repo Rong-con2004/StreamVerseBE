@@ -42,8 +42,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(      // Cấu hình quyền truy cập
                         authorize -> authorize  // Định nghĩa các URL
                                 .requestMatchers(HttpMethod.DELETE).hasRole("ADMIN")
-                                .requestMatchers("/api/v1/**").hasAnyRole("ADMIN", "USER")
-                                .requestMatchers("/api/v2/**").permitAll()
+                                .requestMatchers("/api/v2/**").hasAnyRole("ADMIN", "USER")
+                                .requestMatchers("/api/v1/**").permitAll()
                                 .anyRequest()                  // Các yêu cầu khác phải được xác thực
                                 .authenticated()
                 )
@@ -60,7 +60,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:3000")); // Các origin được phép
+        configuration.setAllowedOrigins(List.of("http://localhost:3030")); // Các origin được phép
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
         configuration.setExposedHeaders(List.of("Authorization"));

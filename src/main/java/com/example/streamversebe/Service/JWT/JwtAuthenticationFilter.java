@@ -60,25 +60,19 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 }
             }
         }catch (ExpiredJwtException e) {
-            throw new JwtException(String.format("JWT token has expired: %s", e.getMessage()));
+            throw new RuntimeException(String.format("JWT token has expired: %s", e.getMessage()));
         }
         catch (UnsupportedJwtException e) {
-            throw new JwtException(String.format("JWT token is unsupported: %s", e.getMessage()));
+            throw new RuntimeException(String.format("JWT token is unsupported: %s", e.getMessage()));
 
         } catch (IllegalArgumentException e) {
-            throw new JwtException(String.format("JWT token is invalid: %s", e.getMessage()));
+            throw new RuntimeException(String.format("JWT token is invalid: %s", e.getMessage()));
         } catch (Exception e) {
-            throw new JwtException(String.format("Unexpected error during JWT processing: %s", e.getMessage()));
+            throw new RuntimeException(String.format("Unexpected error during JWT processing: %s", e.getMessage()));
         }
 
         // Tiếp tục chuỗi filter
         filterChain.doFilter(request, response);
-    }
-
-    public class JwtException extends RuntimeException {
-        public JwtException(String message) {
-            super(message);
-        }
     }
 
 }
