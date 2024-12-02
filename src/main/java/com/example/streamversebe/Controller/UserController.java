@@ -1,11 +1,15 @@
 package com.example.streamversebe.Controller;
 
 import com.example.streamversebe.DTOs.DTO.UserDTO;
+import com.example.streamversebe.Model.Entity.Users;
 import com.example.streamversebe.Service.Interface.UserService;
 import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -66,5 +70,33 @@ public class UserController {
     public ResponseEntity<List<UserDTO>> getAllUsers() {
         List<UserDTO> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
+    }
+
+//    @GetMapping("/chat")
+//    public ResponseEntity<UserDTO> getCChatUsdr(){
+//        var user = userService.getUserByEmail("vanman160504@gmail.com");
+//        return ResponseEntity.ok(new UserDTO().builder()
+//                        .username(user.get().getUsername())
+//                        .status(user.get().getStatus())
+//                        .username(user.get().getUsername())
+//                .build() );
+//    }
+    @MessageMapping("/chat.addUser")
+    @SendTo("/user/topic")
+     public Users addChatUser( @Payload Users chatUserDTO) {
+         userService.saveUser(chatUserDTO);
+         return chatUserDTO;
+     }
+
+    @MessageMapping("/user.disconnectUser")
+    @SendTo("/user/topic")
+    public Users disconnectUser(@Payload Users disChatuser) {
+        userService.disconnect(disChatuser);
+        return disChatuser;
+    }
+
+    @GetMapping("/users")
+    public ResponseEntity<List<Users>> findConnectedUsers() {
+        return ResponseEntity.ok(userService.findConnectUsers());
     }
 }

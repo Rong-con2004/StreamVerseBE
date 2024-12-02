@@ -1,6 +1,7 @@
 package com.example.streamversebe.Repository.Interface;
 
 import com.example.streamversebe.Model.Entity.Users;
+import com.example.streamversebe.Model.Enum.EStatus;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
@@ -24,4 +25,6 @@ public interface UserRepository extends MongoRepository<Users, ObjectId> {
     List<Users> findByLastActiveAfter(LocalDateTime dateTime);
 
     List<Users> findByFriendsContains(ObjectId userId);
+
+    List<Users> findByStatus(EStatus eStatus);
 }

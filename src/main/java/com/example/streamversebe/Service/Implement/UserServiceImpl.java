@@ -3,6 +3,7 @@ package com.example.streamversebe.Service.Implement;
 import com.example.streamversebe.Converter.UserConvert;
 import com.example.streamversebe.DTOs.DTO.UserDTO;
 import com.example.streamversebe.Model.Entity.Users;
+import com.example.streamversebe.Model.Enum.EStatus;
 import com.example.streamversebe.Repository.Interface.UserRepository;
 import com.example.streamversebe.Service.Interface.UserService;
 import lombok.RequiredArgsConstructor;
@@ -79,6 +80,27 @@ public class UserServiceImpl implements UserService {
                 .stream()
                 .map(userConvert::toUserDTO)
                 .toList();
+    }
+
+    @Override
+    public void saveUser(Users chatUser) {
+        chatUser.setStatus(EStatus.ACTIVE);
+        userRepository.save(chatUser);
+    }
+
+    @Override
+    public void disconnect(Users chatUser) {
+        var storedUser = userRepository.findByUsername(chatUser.getUsername())
+                .orElse(null);
+        if (storedUser != null) {
+            storedUser.setStatus(EStatus.INACTIVE);
+            userRepository.save(storedUser);
+        }
+
+    }
+
+    public List<Users> findConnectUsers() {
+        return userRepository.findByStatus(EStatus.ACTIVE);
     }
 
 }
